@@ -6,7 +6,6 @@
  * Time: 18:39
  */
 
-//one more commit
 class Author{
     private $fname;
     private $lname;

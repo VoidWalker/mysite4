@@ -1,4 +1,4 @@
-<?
+﻿<?
 //abstract
 interface GUIFactory {
 	public function createButton();
@@ -63,6 +63,8 @@ class ApplicationRunner {
 
 	public static function createOsSpecificFactory() {
 		$sys = substr(PHP_OS, 0, 3);
+        echo PHP_OS;
+        exit;
 		if (strtoupper($sys) === 'WIN') {
 			return new WinFactory();
 		} else {

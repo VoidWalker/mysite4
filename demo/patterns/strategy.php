@@ -19,7 +19,6 @@ class FileStrategy{
 			$this->_type = new ZipFile();	
 		else
 			$this->_type = new TarGzFile();
-		return $obj;
 	}
 	public function getLink($name){
 		return $this->_type->createLinkName($name);

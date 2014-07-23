@@ -55,25 +55,25 @@ class DVD{
 	}
 	/* ���������� ���������� �� ������� � ������� XML */
 	public function getXML($id){
-		$doc = new DomDocument('1.0', 'utf-8');
-		$doc->formatOutput = true;
-		$doc->preserveWhiteSpace = false;
-		$root = $doc->createElement('dvd');
-		$doc->appendChild($root);
-		$band = $doc->createElement('band', $this->_band);
-		$root->appendChild($band);
-		$title = $doc->createElement('title', $this->_title);
-		$root->appendChild($title);
-		
-		$tracks = $doc->createElement('tracks');
-		$root->appendChild($tracks);
-		$result = $this->_db->selectItemsByTitle($id);
-		foreach($result as $item){
-			$track = $doc->createElement('track', $item['title']);
-			$tracks->appendChild($track);
-		}
-		$file_name = $this->_band.'-'.$this->_title.'.xml';
-		file_put_contents('output/'.$file_name, $doc->saveXML());
+        $doc = new DomDocument('1.0', 'utf-8');
+        $doc->formatOutput = true;
+        $doc->preserveWhiteSpace = false;
+        $root = $doc->createElement('dvd');
+        $doc->appendChild($root);
+        $band = $doc->createElement('band', $this->_band);
+        $root->appendChild($band);
+        $title = $doc->createElement('title', $this->_title);
+        $root->appendChild($title);
+
+        $tracks = $doc->createElement('tracks');
+        $root->appendChild($tracks);
+        $result = $this->_db->selectItemsByTitle($id);
+        foreach($result as $item){
+            $track = $doc->createElement('track', $item['title']);
+            $tracks->appendChild($track);
+        }
+        $file_name = $this->_band.'-'.$this->_title.'.xml';
+        file_put_contents('output/'.$file_name, $doc->saveXML());
 	}
 	
 	/* ���������� ��������� ������ � ����. ������ ��� ������������ */
@@ -82,5 +82,83 @@ class DVD{
 			file_put_contents(__DIR__.'\tracks.log', time().'|'.serialize($this->_tracks)."\n", FILE_APPEND);
 		}
 	}
+}
+
+class DVDStrategy{
+    protected  $_strategy;
+
+    public function setStrategy($strategy){
+        $this->_strategy = $strategy;
+    }
+    public function get($id){
+        $this->_strategy->get($id);
+    }
+
+    function __call($method, $args){
+        $this->_strategy->$method($args[0]);
+    }
+}
+
+interface DVDFormat{
+    function get($id);
+}
+
+class DVDasXML extends DVD implements DVDFormat{
+    public function get($id){
+        $doc = new DomDocument('1.0', 'utf-8');
+        $doc->formatOutput = true;
+        $doc->preserveWhiteSpace = false;
+        $root = $doc->createElement('dvd');
+        $doc->appendChild($root);
+        $band = $doc->createElement('band', $this->_band);
+        $root->appendChild($band);
+        $title = $doc->createElement('title', $this->_title);
+        $root->appendChild($title);
+
+        $tracks = $doc->createElement('tracks');
+        $root->appendChild($tracks);
+        $result = $this->_db->selectItemsByTitle($id);
+        //print_r($result);
+        //exit;
+        foreach($result as $item){
+            $track = $doc->createElement('track', $item['title']);
+            $tracks->appendChild($track);
+        }
+        $file_name = $this->_band.'-'.$this->_title.'.xml';
+        file_put_contents('output/'.$file_name, $doc->saveXML());
+    }
+}
+
+class DVDasJSON extends DVD implements DVDFormat{
+    public function get($id){
+        $doc = array();
+        $doc['dvd']['band'] = $this->_band;
+        $doc['dvd']['title'] = $this->_title;
+        $doc['dvd']['tracks'] = array();
+        $result = $this->_db->selectItemsByTitle($id);
+        foreach($result as $item){
+            $doc['dvd']['tracks'][] = $item['title'];
+        }
+        $file_name = $this->_band."-".$this->_title.".json";
+        file_put_contents("output/".$file_name, json_encode($doc));
+
+    }
+}
+
+class BonusDVD extends DVD{
+    function __construct($id=0){
+        parent::__construct();
+        $this->_tracks[] = -1;
+
+    }
+}
+
+class DVDFactory{
+    public static function create($dvdType){
+        if($dvdType=='Bonus')
+            return new BonusDVD();
+        else
+            return new DVD();
+    }
 }
 ?>

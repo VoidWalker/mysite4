@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 abstract class ImageType{
     protected $type;
 	function returnType(){

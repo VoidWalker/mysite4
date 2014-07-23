@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 abstract class Localization{
 	function formatMoney($sum){
 		number_format($sum);

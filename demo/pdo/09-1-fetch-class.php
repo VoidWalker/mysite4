@@ -17,7 +17,7 @@ class Users{
 
     $stmt = $db->query($sql);
 
-    $obj = $stmt->fetch(PDO:FETCH_CLASS|PDO:FETCH_CLASS_TYPE);
+    $obj = $stmt->fetch(PDO::FETCH_CLASS|PDO::FETCH_CLASSTYPE);
 	
     echo $obj->id.'<br>';
 	echo $obj->nameToUpper().'<br>';

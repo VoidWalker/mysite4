@@ -27,11 +27,14 @@ if($errMsg)
 
 Заголовок новости:<br />
 <input type="text" name="title" /><br />
-Выберите категорию:<br />
+Select category:<br />
 <select name="category">
-<option value="1">Политика</option>
-<option value="2">Культура</option>
-<option value="3">Спорт</option>
+<?php
+    foreach($news->getIterator() as $id => $name){?>
+        <option value="<?=$id?>"><?=$name?></option>
+    <?php
+    }
+?>
 </select>
 <br />
 Текст новости:<br />

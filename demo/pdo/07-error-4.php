@@ -13,6 +13,6 @@ $sql = "SELECT username FROM user";
 
 $result = $db->query($sql);
 
-echo $db->errorCode();
+echo $db->errorCode()."<br>";
 print_r($db->errorInfo());
 ?>

@@ -11,6 +11,5 @@
 	echo $result[0].'<br>';
 	echo $result['name'].'<br>';
 	echo $result->email.'<br>';
-}
 
 ?>

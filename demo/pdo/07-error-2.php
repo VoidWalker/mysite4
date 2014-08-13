@@ -1,10 +1,10 @@
 <?php
 try {
     $db = new PDO("sqlite:users.db");
-
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo 'Connected to database<br>';
 
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
 
     $sql = "SELECT username FROM user";
     foreach ($db->query($sql) as $row){
@@ -13,7 +13,8 @@ try {
 
     $db = null;
 }catch(PDOException $e){
-	echo $e->getMessage();
+	echo $e->getCode()."<br>";
+    echo $e->getMessage()."<br>";
 }
 
 ?>

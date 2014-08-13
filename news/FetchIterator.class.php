@@ -1,9 +1,9 @@
-<?
+﻿<?
 class FetchIterator implements Iterator{
 	/**
 	* @var string
 	*/
-	private $fetchCallback;
+	public $_fetchCallback;
 	/**
 	* номер текущей итерации
 	* @var int
@@ -19,8 +19,22 @@ class FetchIterator implements Iterator{
 	* @param string $fetchCallback функция обратного вызова
 	*/
 	public function __construct($fetchCallback){
-		
+		echo "construct";
+        $this->_fetchCallback = $fetchCallback;
+        $this->count = 0;
 	}
+
+    public function rewind(){}
+
+    /**
+     * Возврат ключа текущего элемента
+     * @link http://php.net/manual/en/iterator.key.php
+     * @return scalar скалярное значение, либо целое 0
+     */
+    public function key(){
+        $this->count || $this->next();
+        return $this->count + 1;
+    }
 
 	/**
 	* Возврат значения текущего элемента
@@ -28,17 +42,12 @@ class FetchIterator implements Iterator{
 	* @return mixed Возвращает любой тип
 	*/
 	public function current(){
-		
+        echo "current";
+		$this->count || $this->next();
+        return $this->current;
 	}
-	public function rewind(){}
-	/**
-	* Возврат ключа текущего элемента
-	* @link http://php.net/manual/en/iterator.key.php
-	* @return scalar скалярное значение, либо целое 0
-	*/
-	public function key(){
-		
-	}
+
+
 
 	/**
 	* Проверка текущей позиции
@@ -47,14 +56,15 @@ class FetchIterator implements Iterator{
 	* Возвращает true или false
 	*/
 	public function valid(){
-		
+		$this->count || $this->next();
+        return $this->validate();
 	}
 
 	/**
 	* @return bool
 	*/
 	private function validate(){
-		
+		return false != $this->current || is_string($this->current);
 	}
 
 	/**
@@ -63,14 +73,19 @@ class FetchIterator implements Iterator{
 	* @return void Любое возвращаемое значение игнорируется
 	*/
 	public function next(){
-		
+		if($this->count && ! $this->validate()){
+            return;
+        }
+        $this->fetch();
+        $this->count++;
 	}
 
 	/**
 	* Используем функцию обратного вызова
 	*/
 	public function fetch(){
-		
+		$func = $this->_fetchCallback;
+        $this->current = $func();
 	}
 }
 ?>

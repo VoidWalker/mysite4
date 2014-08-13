@@ -1,3 +1,4 @@
+<pre>
 <?php
 class MyIterator implements Iterator{
     private $var = array();

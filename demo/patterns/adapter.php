@@ -16,7 +16,7 @@ class Product {
 }
 
 class ProductAdapter {
-	private $products;
+	private $product;
 
 	function __construct(Product $product) {
 		$this->product = $product;

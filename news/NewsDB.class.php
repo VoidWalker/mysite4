@@ -1,49 +1,78 @@
 <?php
+//include "FetchIterator.class.php";
 include "INewsDB.class.php";
-class NewsDB implements INewsDB{
+
+class NewsDB implements INewsDB, IteratorAggregate{
 	const DB_NAME = 'news.db';
 	protected $_db;
+    protected $_items = [];
 	function __construct(){
 		if(is_file(self::DB_NAME)){
-			$this->_db = new SQLite3(self::DB_NAME);
+			$this->_db = new PDO("sqlite:".self::DB_NAME);
+            $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}else{
-			$this->_db = new SQLite3(self::DB_NAME);
-			$sql = "CREATE TABLE msgs(
-									id INTEGER PRIMARY KEY AUTOINCREMENT,
-									title TEXT,
-									category INTEGER,
-									description TEXT,
-									source TEXT,
-									datetime INTEGER
-								)";
-			$this->_db->exec($sql) or $this->_db->lastErrorMsg();
-			$sql = "CREATE TABLE category(
-										id INTEGER PRIMARY KEY AUTOINCREMENT,
-										name TEXT
-									)";
-			$this->_db->exec($sql) or $this->_db->lastErrorMsg();
-			$sql = "INSERT INTO category(id, name)
-						SELECT 1 as id, 'Политика' as name
-						UNION SELECT 2 as id, 'Культура' as name
-						UNION SELECT 3 as id, 'Спорт' as name";
-			$this->_db->exec($sql) or $this->_db->lastErrorMsg();	
+            try{
+                $this->_db = new PDO("sglite:".self::DB_NAME);
+                $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "CREATE TABLE msgs(
+                                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        title TEXT,
+                                        category INTEGER,
+                                        description TEXT,
+                                        source TEXT,
+                                        datetime INTEGER
+                                    )";
+                $this->_db->exec($sql);
+                $sql = "CREATE TABLE category(
+                                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                            name TEXT
+                                        )";
+                $this->_db->exec($sql);
+                $sql = "INSERT INTO category(id, name)
+                            SELECT 1 as id, 'Politics' as name
+                            UNION SELECT 2 as id, 'Culture' as name
+                            UNION SELECT 3 as id, 'Sport' as name";
+                $this->_db->exec($sql);
+            }catch (PDOException $e){
+                echo $e->getCode().":".$e->getMessage();
+            }
 		}
+        $this->getCategories();
 	}
+    protected function getCategories(){
+        try{
+            $sql = "SELECT id, name
+                    FROM category";
+            $result = $this->_db->query($sql);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $this->_items[$row['id']] = $row['name'];
+        }
+        }catch (PDOException $e){
+            echo $e->getCode().":".$e->getMessage();
+        }
+    }
 	function __destruct(){
 		unset($this->_db);
 	}
+    function getIterator(){
+        return new ArrayIterator($this->_items);
+    }
 	function saveNews($title, $category, $description, $source){
-		$dt = time();
+		try{
+        $dt = time();
 		$sql = "INSERT INTO msgs(title, category, description, source, datetime)
-					VALUES('$title', $category, '$description', '$source', $dt)";
+					VALUES($title, $category, $description, $source, $dt)";
 		$ret = $this->_db->exec($sql);
-		if(!$ret)
+		if($ret === false)
 			return false;
-		return true;	
+		return true;
+        }catch (PDOException $e){
+            echo $e->getCode().":".$e->getMessage();
+        }
 	}	
 	protected function db2Arr($data){
 		$arr = array();
-		while($row = $data->fetchAll(SQLITE3_ASSOC))
+		while($row = $data->fetch(PDO::FETCH_ASSOC))
 			$arr[] = $row;
 		return $arr;	
 	}
@@ -54,27 +83,23 @@ class NewsDB implements INewsDB{
 					WHERE category.id = msgs.category
 					ORDER BY msgs.id DESC";
 			$result = $this->_db->query($sql);
-			if (!is_object($result)) 
-				throw new Exception($this->_db->lastErrorMsg());
 			return $this->db2Arr($result);
-		}catch(Exception $e){
-			return false;
+		}catch(PDOException $e){
+            echo $e->getCode().":".$e->getMessage();
 		}
 	}	
 	public function deleteNews($id){
 		try{
 			$sql = "DELETE FROM msgs WHERE id = $id";
-			$result = $this->_db->exec($sql);
-			if (!$result) 
-				throw new Exception($this->_db->lastErrorMsg());
+			$this->_db->exec($sql);
 			return true;
-		}catch(Exception $e){
-			echo $e->getMessage();
+		}catch(PDOException $e){
+            echo $e->getCode().":".$e->getMessage();
 			return false;
 		}
 	}
 	function clearData($data){
-		return $this->_db->escapeString($data); 
+		return $this->_db->quote($data);
 	}	
 }
 ?>

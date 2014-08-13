@@ -1,3 +1,3 @@
 <?php
-$dbh = new PDO("sqlite:wrong.db");
+$dbh = new PDO("sqlite:users.db");
 ?>

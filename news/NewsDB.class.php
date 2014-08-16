@@ -7,13 +7,14 @@ class NewsDB implements INewsDB, IteratorAggregate{
 	protected $_db;
     protected $_items = [];
 	function __construct(){
-		if(is_file(self::DB_NAME)){
+		if(is_file(self::DB_NAME) and filesize(self::DB_NAME)>0){
 			$this->_db = new PDO("sqlite:".self::DB_NAME);
             $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}else{
             try{
-                $this->_db = new PDO("sglite:".self::DB_NAME);
+                $this->_db = new PDO("sqlite:".self::DB_NAME);
                 $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->_db->beginTransaction();
                 $sql = "CREATE TABLE msgs(
                                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                                         title TEXT,
@@ -33,8 +34,12 @@ class NewsDB implements INewsDB, IteratorAggregate{
                             UNION SELECT 2 as id, 'Culture' as name
                             UNION SELECT 3 as id, 'Sport' as name";
                 $this->_db->exec($sql);
+
+                $this->_db->commit();
             }catch (PDOException $e){
                 echo $e->getCode().":".$e->getMessage();
+                $this->_db->rollBack();
+                echo "Cannot create DB.<br>";
             }
 		}
         $this->getCategories();

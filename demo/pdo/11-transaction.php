@@ -20,11 +20,11 @@ try {
 
 	$db->commit();
 
-	echo 'Всё прошло удачно.<br>';
+	echo 'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.<br>';
 
 }catch(PDOException $e){
 
-	$db->rollback();
+	$db->rollBack();
 
 	echo $e->getMessage();
 }

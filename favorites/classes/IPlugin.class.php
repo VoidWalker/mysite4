@@ -1,18 +1,18 @@
-<?php
+ï»¿<?php
 interface IPlugin{
-	/**	Îïèñàíèå ïëàãèíà
+	/**	ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð¿Ð»Ð°Ð³Ð¸Ð½Ð°
 	*/
 	public static function getName();
-	/**	Äëÿ âûâîäà ññûëîê íà ñàéòû , îïèøèòå ìåòîä (public èëè public static)
-	* 	Ôîðìàò: array(link, href)  
+	/**	Ð”Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑÑ‹Ð»Ð¾Ðº Ð½Ð° ÑÐ°Ð¹Ñ‚Ñ‹ , Ð¾Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ð¼ÐµÑ‚Ð¾Ð´ (public Ð¸Ð»Ð¸ public static)
+	* 	Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚: array(link, href)  
 	*	array getMenuItems(void)
 	*/
-	/**	Äëÿ âûâîäà ññûëîê íà ñòàòüè, îïèøèòå ìåòîä (public èëè public static)
-	* 	Ôîðìàò: array(íàçâàíèå ñòàòüè, href)
+	/**	Ð”Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑÑ‹Ð»Ð¾Ðº Ð½Ð° ÑÑ‚Ð°Ñ‚ÑŒÐ¸, Ð¾Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ð¼ÐµÑ‚Ð¾Ð´ (public Ð¸Ð»Ð¸ public static)
+	* 	Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚: array(Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚Ð°Ñ‚ÑŒÐ¸, href)
 	* 	array getArticlesItems(void)
 	*/
-	/**	Äëÿ âûâîäà ññûëîê íà ïðèëîæåíèÿ, îïèøèòå ìåòîä (public èëè public static)
-	* 	Ôîðìàò: array(íàçâàíèå ïðèëîæåíèÿ, href)
+	/**	Ð”Ð»Ñ Ð²Ñ‹Ð²Ð¾Ð´Ð° ÑÑÑ‹Ð»Ð¾Ðº Ð½Ð° Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ, Ð¾Ð¿Ð¸ÑˆÐ¸Ñ‚Ðµ Ð¼ÐµÑ‚Ð¾Ð´ (public Ð¸Ð»Ð¸ public static)
+	* 	Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚: array(Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ, href)
 	* 	array getAppsItems(void)
 	*/
 }

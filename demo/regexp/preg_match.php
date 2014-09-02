@@ -1,10 +1,10 @@
-<?php
-if (preg_match("/php/i", "PHP")) {
+﻿<?php
+if (preg_match("/PHP.?5/", "PHP 5")) {
     print "Проходит!\n";
 }
 
 preg_match("/php/", "php");//True
-preg_match("php/", "php");//Error
+//preg_match("php/", "php");//Error
 preg_match("/php/", "PHP");//False
 preg_match("/php/i", "PHP");//True
 preg_match("/Foo/i", "FOO");//True
@@ -21,7 +21,7 @@ preg_match("/[A-Z]{3}/", "FuZ");//False
 preg_match("/[A-Z]{3}/i", "FuZ");//True
 preg_match("/[0-9]{3}-[0-9]{4}/", "555-1234");//True
 preg_match("/[a-z]+[0-9]?[a-z]{1}/", "aaa1");//True
-preg_match("/[A-Z]{1,}99/", "99")//False
+preg_match("/[A-Z]{1,}99/", "99");//False
 preg_match("/[A-Z]{1,5}99/", "FINGERS99");//True
 preg_match("/[A-Z]{1,5}[0-9]{2}/i", "adams42");//True
  
@@ -69,6 +69,6 @@ preg_match("/royalty\b/", "royalty-free photograph");//True
 $a = "Foo moo boo tool foo!";
 preg_match("/[A-Za-z]oo\b/i", $a, $matches);
 preg_match_all("/[A-Za-z]oo\b/i", $a, $matches);
-var_dump($matches);
+//var_dump($matches);
     
 ?>

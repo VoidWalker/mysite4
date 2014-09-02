@@ -1,4 +1,4 @@
-<pre>
+﻿<pre>
 <?php
 class String
 {
@@ -20,7 +20,7 @@ printf(
         $prop->isDefault() ? 'объявлено во время компиляции' : 'создано во время выполнения',
         var_export(Reflection::getModifierNames($prop->getModifiers()), 1)
 );
-exit;
+//exit;
 
 
 // Создание экземпляра String

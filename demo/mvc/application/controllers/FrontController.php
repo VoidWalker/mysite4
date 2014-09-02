@@ -1,4 +1,4 @@
-<?php
+п»ї<?php
 class FrontController {
 	protected $_controller, $_action, $_params, $_body;
 	static $_instance;
@@ -15,15 +15,15 @@ class FrontController {
 		$this->_controller = !empty($splits[0]) ? ucfirst($splits[0]).'Controller' : 'IndexController';
 		//Action
 		$this->_action = !empty($splits[1]) ? $splits[1].'Action' : 'indexAction';
-		//Есть ли параметры и их значения?
+		//Р•СЃС‚СЊ Р»Рё РїР°СЂР°РјРµС‚СЂС‹ Рё РёС… Р·РЅР°С‡РµРЅРёСЏ?
 		if(!empty($splits[2])){
 			$keys = $values = array();
 				for($i=2, $cnt = count($splits); $i<$cnt; $i++){
 					if($i % 2 == 0){
-						//Чётное = ключ (параметр)
+						//Р§С‘С‚РЅРѕРµ = РєР»СЋС‡ (РїР°СЂР°РјРµС‚СЂ)
 						$keys[] = $splits[$i];
 					}else{
-						//Значение параметра;
+						//Р—РЅР°С‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР°;
 						$values[] = $splits[$i];
 					}
 				}

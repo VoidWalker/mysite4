@@ -1,7 +1,7 @@
-<pre>
+﻿<pre>
 <?php
 // Создание экземпляра класса ReflectionProperty
-$ext = new ReflectionExtension('standard');
+$ext = new ReflectionExtension('mysqli');
 
 // Вывод основной информации
 printf(

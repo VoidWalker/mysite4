@@ -1,27 +1,27 @@
-<?php
-/* Ïóòè ïî-óìîë÷àíèþ äëÿ ïîèñêà ôàéëîâ */
+ï»¿<?php
+/* ÐŸÑƒÑ‚Ð¸ Ð¿Ð¾-ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ Ð´Ð»Ñ Ð¿Ð¾Ð¸ÑÐºÐ° Ñ„Ð°Ð¹Ð»Ð¾Ð² */
 set_include_path(get_include_path()
 					.PATH_SEPARATOR.'application/controllers'
 					.PATH_SEPARATOR.'application/models'
 					.PATH_SEPARATOR.'application/views');
 
-/* Èìåíà ôàéëîâ: views */
+/* Ð˜Ð¼ÐµÐ½Ð° Ñ„Ð°Ð¹Ð»Ð¾Ð²: views */
 define('USER_DEFAULT_FILE', 'user_default.php');
 define('USER_ROLE_FILE', 'user_role.php');
 define('USER_LIST_FILE', 'user_list.php');
 define('USER_ADD_FILE', 'user_add.php');
 
-/* Òåêñòîâàÿ áàçà äàííûõ ïîëüçîâàòåëåé */
+/* Ð¢ÐµÐºÑÑ‚Ð¾Ð²Ð°Ñ Ð±Ð°Ð·Ð° Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¹ */
 define('USER_DB', $_SERVER["DOCUMENT_ROOT"].'/data/users.txt');
 
-/* Àâòîçàãðóç÷èê êëàññîâ */
+/* ÐÐ²Ñ‚Ð¾Ð·Ð°Ð³Ñ€ÑƒÐ·Ñ‡Ð¸Ðº ÐºÐ»Ð°ÑÑÐ¾Ð² */
 function __autoload($class){
 	require_once($class.'.php');
 }
 
-/* Èíèöèàëèçàöèÿ è çàïóñê FrontController */
+/* Ð˜Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¸ Ð·Ð°Ð¿ÑƒÑÐº FrontController */
 $front = FrontController::getInstance();
 $front->route();
 
-/* Âûâîä äàííûõ */
+/* Ð’Ñ‹Ð²Ð¾Ð´ Ð´Ð°Ð½Ð½Ñ‹Ñ… */
 echo $front->getBody();

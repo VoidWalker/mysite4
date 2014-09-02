@@ -1,4 +1,5 @@
-<?php 
+ï»¿<?php
+echo "Test";
 function curlHeaderCallback($curl, $headers) { 
     if (preg_match('/^HTTP/i', $headers)) { 
         header($headers); 
@@ -6,8 +7,7 @@ function curlHeaderCallback($curl, $headers) {
     } 
     return strlen($headers); 
 } 
-
-$str = 'http://'.$_SERVER['HTTP_HOST'].'/demo/curl/zip.php'; 
+$str = 'http://'.$_SERVER['HTTP_HOST'].'/mysite4.local/demo/curl/zip.php';
 $curl = curl_init(); 
 curl_setopt($curl, CURLOPT_URL, $str); 
 curl_setopt($curl, CURLOPT_BINARYTRANSFER, 1); 
@@ -20,6 +20,6 @@ $result = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close ($curl); 
 
 if ($result != 200) { 
-    print 'Îøèáêà: ' . $result; 
+    print 'Not 200: ' . $result;
 } 
 ?>

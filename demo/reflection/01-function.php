@@ -1,4 +1,4 @@
-<pre>
+﻿<pre>
 <?php
 function sayHello($name, $h){
 	static $count = 0;
@@ -6,9 +6,9 @@ function sayHello($name, $h){
 }
 
 // Обзор функции
-Reflection::export(new ReflectionFunction('sayHello'));
+/*Reflection::export(new ReflectionFunction('strlen'));
 exit;
-
+*/
 
 // Создание экземпляра класса ReflectionFunction
 	$func = new ReflectionFunction('sayHello');
@@ -27,7 +27,7 @@ printf(
 if ($statics = $func->getStaticVariables()){
     printf("<p>---> Статическая переменная: %s\n", var_export($statics,1));
 }
-exit;
+
 
 
 // Вызов функции

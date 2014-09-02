@@ -1,7 +1,7 @@
-<?
-require_once 'classes/IPlugin.class.php';
+п»ї<?php
+require_once dirname(dirname(__FILE__))."/IPlugin.class.php";
 class PluginIvana implements IPlugin{
-	private $links = array(
+	private static $links = array(
 						array('Site 1', 'www.site-1.org'),
 						array('Site 2', 'www.site-2.org'),
 						array('Site 3', 'www.site-3.org'),
@@ -12,21 +12,21 @@ class PluginIvana implements IPlugin{
 						array('Article 3', 'www.site.org/index.php?id=3'),	
 						array('Article 4', 'www.site.org/index.php?id=4'),	
 					);
-	private $apps = array(
+	private static $apps = array(
 						array('App 1', 'www.site.org/app-1/'),	
 						array('App 2', 'www.site.org/app-2/'),	
 						array('App 3', 'www.site.org/app-3/'),	
 						array('App 4', 'www.site.org/app-4/'),	
 					);				
-	public static function getName() { return 'Ссылки от Пети'; }
+	public static function getName() { return 'Links from Ivan'; }
 	public static function getLinksItems() {
-		return $this->links;
+		return self::$links;
 	}
 	public function getArticlesItems() {
 		return $this->articles;
 	}
 	public static function getAppsItems() {
-		return $this->apps;
+		return self::$apps;
 	}	
 }
 ?>

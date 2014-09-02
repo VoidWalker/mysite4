@@ -1,5 +1,9 @@
 <?php
 include_once 'classes/Favorites.class.php';
+$var = new Favorites();
+$sites = $var->getFavorites('getLinksItems');
+$apps = $var->getFavorites('getAppsItems');
+$articles = $var->getFavorites('getArticlesItems');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
@@ -18,15 +22,32 @@ include_once 'classes/Favorites.class.php';
 	</div>
 	<div id='a'>
 		<h2>Полезные сайты</h2>
-		<ul><? /* Список сайтов */ ?></ul>
+		<ul>
+            <?php
+            foreach ($sites as $site) {
+                echo "<a href='$site[1]'>$site[1]</a></br>";
+            }
+            ?>
+        </ul>
 	</div>
 	<div id='b'>
 		<h2>Полезные приложения</h2>
-		<ul><? /* Список приложений */ ?></ul>
+		<ul>
+            <?php
+            foreach ($apps as $app) {
+                echo "<a href='$app[1]'>$app[0]</a></br>";
+            } ?>
+        </ul>
 	</div>
 	<div id='c'>
 		<h2>Полезные статьи</h2>
-		<ul><? /* Список статей */ ?></ul>
+		<ul>
+            <?php
+            foreach ($articles as $article) {
+                echo "<a href='$article[1]'>$article[0]</a></br>";
+            }
+            ?>
+        </ul>
 	</div>
 </body>
 </html>

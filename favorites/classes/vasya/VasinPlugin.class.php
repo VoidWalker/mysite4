@@ -1,7 +1,7 @@
-<?
-require_once 'classes/IPlugin.class.php';
+п»ї<?php
+require_once dirname(dirname(__FILE__))."/IPlugin.class.php";
 class VasinPlugin implements IPlugin{
-	private $links = array(
+	private static $links = array(
 						array('Super Site 1', 'www.site-1.ru'),
 						array('Super Site 2', 'www.site-2.ru'),
 						array('Super Site 3', 'www.site-3.ru'),
@@ -11,9 +11,9 @@ class VasinPlugin implements IPlugin{
 						array('Super App 1', 'www.site.ru/app-1/'),	
 						array('Super App 2', 'www.site.ru/app-2/'),	
 					);				
-	public static function getName() { return 'Ссылки от Васи'; }
+	public static function getName() { return 'Links from Vasya'; }
 	public static function getLinksItems() {
-		return $this->links;
+		return self::$links;
 	}
 	public function getAppsItems() {
 		return $this->apps;

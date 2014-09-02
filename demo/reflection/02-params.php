@@ -1,4 +1,4 @@
-<pre>
+﻿<pre>
 <?php
 	function foo1($a, $b, $c) { }
 	function foo2(Exception $a, &$b, $c) { }
@@ -8,8 +8,8 @@
 // Создание экземпляра класса ReflectionFunction
 $reflect = new ReflectionFunction("foo1");
 
-echo $reflect;
-exit;
+//echo $reflect;
+//exit;
 
 
 foreach ($reflect->getParameters() as $i => $param) {

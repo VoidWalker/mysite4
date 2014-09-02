@@ -1,8 +1,8 @@
-<?php
+ï»¿<?php
 class IndexController implements IController {
 	public function indexAction() {
 		$fc = FrontController::getInstance();
-		//Äîáàâëÿåì
+		//Ð”Ð¾Ð±Ð°Ð²Ð»ÑÐµÐ¼
 		$params = $fc->getParams();
 		$view = new View();
 		//$view->name = "John";

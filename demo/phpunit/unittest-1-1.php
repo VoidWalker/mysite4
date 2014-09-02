@@ -1,5 +1,5 @@
-<?php
-// Òåñòèðîâàíèå îïåðàöèé ñ ìàññèâàìè PHP ïðè ñ èñïîëüçîâàíèåì PHPUnit
+ï»¿<?php
+// Ð¢ÐµÑÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹ Ñ Ð¼Ð°ÑÑÐ¸Ð²Ð°Ð¼Ð¸ PHP Ð¿Ñ€Ð¸ Ñ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼ PHPUnit
 require_once 'PHPUnit/Framework.php';
 
 class ArrayTest extends PHPUnit_Framework_TestCase{

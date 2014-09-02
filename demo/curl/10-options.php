@@ -2,7 +2,7 @@
 
 $curl = curl_init(); 
 
-curl_setopt($curl, CURLOPT_URL, "http://".$_SERVER['HTTP_HOST']."/demo/curl/alloptions.php"); 
+curl_setopt($curl, CURLOPT_URL, "http://".$_SERVER['HTTP_HOST']."/mysite4.local/demo/curl/alloptions.php");
 curl_setopt($curl, CURLOPT_USERAGENT, "Super-Puper browser");
 curl_setopt($curl, CURLOPT_REFERER, "http://ya.ru");
 curl_setopt($curl, CURLOPT_COOKIE, "name=John");
